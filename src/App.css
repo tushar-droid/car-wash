@@ -1,5 +1,91 @@
 
 body{
     font-family: "Oswald";
+    background-color: #00072d;
+    color: white;
+    margin: 4rem;
+}
+
+
+.navbar{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-right: 10%;
+}
+
+.heading{
+    font-size: 3rem;
+    text-transform:uppercase;
 }
   
+.searchbar{
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.searchbar-txt{
+    font-size: 1.5rem;
+    padding: 0.5rem 2.5rem ;
+    border-radius: 20px;
+    border: none;
+    background-color: #424b80;
+    text-transform: capitalize;
+    color: white;
+    transition: all 0.1s ease-in-out;
+}
+
+.search-icon{
+    color: white;  
+    position: absolute;  
+    height: 1.5rem;
+    margin-left: 0.5rem;
+}
+
+.searchbar-txt:focus{
+    outline: white solid;
+}
+
+.main-content{
+    display: flex;
+    justify-content: space-between;
+    margin-top: 3rem;
+    width: 100%;
+    gap: 5rem;
+}
+.header-key{
+    font-size: 5rem;
+    margin: 0;
+}
+.negative-result{
+    color: red;
+}
+.positive-result{
+    color: green;
+}
+
+.content-left > h3{
+    font-size: 2.5rem;
+}
+
+.content-left, .content-right{
+    background-color: #1a1f3b;
+    flex: 1;
+    padding: 2rem 4rem;
+    border-radius: 20px;
+}
+
+.content-right{
+    display: flex;
+    flex-direction: column;
+    align-items: center;   
+}
+
+.weather-top{
+    display: flex;
+    width: 60%;
+    align-items: center;
+    justify-content: space-evenly;
+    color: #0cc0df;
+}
