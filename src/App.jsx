@@ -5,17 +5,18 @@ import axios from 'axios';
 function App(){
 
   // eslint-disable-next-line no-unused-vars
-  const [location, setLocation] = useState('Kelowna');
+  const [location, setLocation] = useState('windsor');
   const [weatherData, setWeatherData] = useState('');
   let are_temps_freezing = false;
   let is_snow_expected = false;
   let is_rain_expected = false;
-  let time_stamp = '';
+  const [result_key, setResult_key] = useState('NOPE')
 
-  let result_key = 'NOPE';
+
+  // let result_key = 'NOPE';
   // const result_result = 'NOT A GREAT IDEA SNOW EXPECTED WITHIN NEXT 5 DAYS!!';
   const KEY = '7dd6ba41dd78da2d426c8602e5ec3c72';
-  let conditions = '';
+  const [conditions, setConditions] = useState('');
 
   useEffect(()=>{
     const getWeather = async () =>{
@@ -34,53 +35,48 @@ function App(){
         // console.log('WEATHER CONDITIONS:', weatherData.list[data].weather[0].id)
         if(weatherData.list[data].weather[0].id >=200 && weatherData.list[data].weather[0].id <=535){
           is_rain_expected = true;
-          time_stamp = weatherData.list[data].dt_txt;
         }
         else if(weatherData.list[data].weather[0].id >= 600 && weatherData.list[data].weather[0].id <=622){
           is_snow_expected = true;
-          time_stamp = weatherData.list[data].dt_txt;
         }
         else if(weatherData.list[data].main.temp < -5){
           are_temps_freezing = true;
         }
 
       }
-
-      console.log(`Are temps freezing: ${are_temps_freezing} | Is snow expected: ${is_snow_expected} | Is rain expected: ${is_rain_expected}`)
-      console.log('TIME STAMP: ', time_stamp)
       if(are_temps_freezing || is_rain_expected || is_snow_expected){
-        result_key = 'NOPE'
+        setResult_key('NOPE');
         if(are_temps_freezing && is_rain_expected && is_snow_expected){
-          conditions = 'freezing temps, snow and rain';
+          setConditions('freezing temps, snow and rain');
           return;
         }
         else if(are_temps_freezing && is_rain_expected){
-          conditions = 'freezing temps and rain';
+          setConditions('freezing temps and rain');
           return;
         }
         else if(are_temps_freezing && is_snow_expected){
-          conditions = "freezing temps and snow";
+          setConditions("freezing temps and snow");
           return
         }
         else if(is_rain_expected && is_snow_expected){
-          conditions = "Rain and snow ";
+          setConditions("Rain and snow ");
           return;
         }
         else if(are_temps_freezing){
-          conditions = "Freezing temps ";
+          setConditions("Freezing temps ");
           return;
         }
         else if(is_rain_expected){
-          conditions = "rain"
+          setConditions("rain");
           return;
         }
         else if(is_snow_expected){
-          conditions = "snow"
+          setConditions("snow");
           return;
         }
       }
       else{
-        result_key = "GO AHEAD"
+        setResult_key("GO AHEAD");
       }
       
 
@@ -114,7 +110,6 @@ function App(){
       <div className="content-left">
         <h1 className={`header-key ${result_key==='GO AHEAD'?  'positive-result' : 'negative-result' }`}>{result_key}</h1>
         <h3>{result_key==="GO AHEAD" ? `Weather seems clear make that whip shine :)` :`not a great idea ${conditions} expected within next 5 days`}</h3>
-        <p>{conditions}</p>
       </div>
       <div className="content-right">
         

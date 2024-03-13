@@ -74,6 +74,8 @@ body{
     flex: 1;
     padding: 2rem 4rem;
     border-radius: 20px;
+    text-transform: uppercase;
+
 }
 
 .content-right{
