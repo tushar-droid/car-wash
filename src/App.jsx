@@ -42,7 +42,6 @@ function App(){
       navigator.permissions
       .query({name: "geolocation"})
       .then(function(result){
-        console.log(result);
         if(result.state ==="granted"){
           navigator.geolocation.getCurrentPosition(success, errors, options)
         }
@@ -65,7 +64,6 @@ function App(){
   const getWeather = async (lat, long) =>{
     setError(null)
     if(lat && long){
-      console.log("----USING COORDS TO GET DATA---");
       const res = await axios.get(
         `https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${long}&appid=${KEY}&units=metric`
       )
@@ -77,12 +75,10 @@ function App(){
       // setWeatherData(res.data)
     }
     else if(location){
-      console.log('The location that the func received was: ', location)
       const res = await axios.get(
         `https://api.openweathermap.org/data/2.5/forecast?appid=${KEY}&q=${location}&units=metric`
       )
       .catch((error) =>{
-        console.log('The error was set while getting the weather')
         setError(error);
         setLoading(false);
 
@@ -100,9 +96,7 @@ function App(){
 
   useEffect(() =>{
     if(weatherData.list){
-      console.log(`second use effect prints:, `, weatherData.list[0].weather[0].id)
       for( const data in weatherData.list){
-        // console.log('WEATHER CONDITIONS:', weatherData.list[data].weather[0].id)
         if(weatherData.list[data].weather[0].id >=200 && weatherData.list[data].weather[0].id <=535){
           is_rain_expected = true;
           if(timestamp!==null)
@@ -179,9 +173,10 @@ function App(){
     <>
       <div className='navbar'>
         <h1 className='heading'>Should I wash my car <br/>today?</h1>
+        
         <div className='searchbar'>
           <img src='/search-icon.png' className='search-icon'/>
-          <input type="text" className='searchbar-txt'onKeyDown={e => getLocation(e)}/>
+          <input type="text" className='searchbar-txt' placeholder='City name' onKeyDown={e => getLocation(e)}/>
         </div>
       </div>
       {loading? location===null ? <h1 className='loading-screen'>PLEASE PROVIDE LOCATION ACCESS OR SEARCH FOR YOUR LOCATION </h1> : <h1 className='loading-screen'>LOADING...</h1>: 

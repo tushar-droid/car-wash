@@ -5,6 +5,11 @@ body{
     color: white;
     margin: 4rem;
 }
+::placeholder{
+    color: rgba(255, 255, 255, 0.395);
+    font-family: 'Oswald';
+}
+
 
 .loading-screen{
     text-align: center;
@@ -35,12 +40,13 @@ body{
 .searchbar-txt{
     font-size: 1.5rem;
     padding: 0.5rem 2.5rem ;
-    border-radius: 20px;
+    border-radius: 25px;
     border: none;
     background-color: #424b80;
     text-transform: capitalize;
     color: white;
     transition: all 0.1s ease-in-out;
+    font-family: 'Oswald';
 }
 
 .search-icon{
@@ -51,7 +57,8 @@ body{
 }
 
 .searchbar-txt:focus{
-    outline: white solid;
+    outline: none;
+    background-color: #2e3559;
 }
 
 .main-content{
