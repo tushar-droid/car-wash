@@ -184,11 +184,11 @@ function App(){
           <input type="text" className='searchbar-txt'onKeyDown={e => getLocation(e)}/>
         </div>
       </div>
-      {loading? location===null ? <h1>PLEASE PROVIDE LOCATION ACCESS OR SEARCH FOR YOUR LOCATION </h1> : <h1>LOADING...</h1>: 
+      {loading? location===null ? <h1 className='loading-screen'>PLEASE PROVIDE LOCATION ACCESS OR SEARCH FOR YOUR LOCATION </h1> : <h1 className='loading-screen'>LOADING...</h1>: 
       <>
         <h1 className='location-name'>{location}</h1>  
         <div className='main-content'>
-          {error? <h1>THERE WAS AN ERROR TRY AGAIN WITH A DIFFERENT LOCATION<br/> POSSIBLE REASONS CAN BE: <br/> &nbsp;&nbsp;&nbsp;&nbsp; - THE LOCATION YOU ENTERED WAS NOT FOUND IN OUR SERVER. <br/>&nbsp;&nbsp;&nbsp;&nbsp; - OUR SERVERS ARE DOWN</h1>:
+          {error? <h1 className='error-screen'>THERE WAS AN ERROR TRY AGAIN WITH A DIFFERENT LOCATION<br/> POSSIBLE REASONS CAN BE: <br/> &nbsp;&nbsp;&nbsp;&nbsp; - THE LOCATION YOU ENTERED WAS NOT FOUND IN OUR SERVER. <br/>&nbsp;&nbsp;&nbsp;&nbsp; - OUR SERVERS ARE DOWN</h1>:
           <>
             <div className="content-left">
               <h1 className={`header-key ${result_key==='GO AHEAD'?  'positive-result' : 'negative-result' }`}>{result_key}</h1>

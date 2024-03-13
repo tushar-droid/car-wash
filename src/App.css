@@ -6,6 +6,13 @@ body{
     margin: 4rem;
 }
 
+.loading-screen{
+    text-align: center;
+}
+.error-screen{
+    width: 100%;
+    text-align: center;
+}
 
 .navbar{
     display: flex;
@@ -101,4 +108,47 @@ body{
 
 .weather-conditions{
     text-align: center;
+}
+
+@media only screen and (max-width: 600px){
+    body{
+        margin: 2rem;
+        padding-bottom: 1rem;
+    }
+    .heading{
+        text-align: center;
+    }
+    .navbar{
+        flex-direction: column;
+        padding: 0;
+    }
+    .heading{
+        font-size: 2rem;
+    }
+    .location-name{
+        font-size: 2rem;
+    }
+    .main-content{
+        flex-direction: column;
+        
+    }
+    .content-left, .content-right{
+        padding: 1rem;
+        text-align: center;
+    }
+    .header-key{
+        font-size: 3rem;
+        text-align: center;
+    }
+    .content-left > h3{
+        font-size: 1.5rem;
+    }
+    .content-right *{
+        font-size: 1.5rem;
+    }
+    .loading-screen{
+        text-align: center;
+    }
+
+
 }
