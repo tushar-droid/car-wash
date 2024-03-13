@@ -8,6 +8,7 @@ function App(){
   // eslint-disable-next-line no-unused-vars
   const [location, setLocation] = useState('Edmonton');
   const [weatherData, setWeatherData] = useState('');
+  const [error, setError] = useState(null);
   let are_temps_freezing = false;
   let is_snow_expected = false;
   let is_rain_expected = false;
@@ -20,9 +21,13 @@ function App(){
   const [conditions, setConditions] = useState('');
 
   const getWeather = async () =>{
+    setError(null)
     const res = await axios.get(
       `https://api.openweathermap.org/data/2.5/forecast?appid=${KEY}&q=${location}&units=metric`
     )
+    .catch((error) =>{
+      setError(error)
+    })
     setWeatherData(res.data)
   }
   useEffect(()=>{
@@ -108,8 +113,11 @@ function App(){
         <img src='../public/search-icon.png' className='search-icon'/>
         <input type="text" className='searchbar-txt'onKeyDown={e => getLocation(e)}/>
       </div>
-    </div>  
+    </div>
+    <h1 className='location-name'>{location}</h1>  
     <div className='main-content'>
+      {error? <h1>THERE WAS AN ERROR TRY AGAIN WITH A DIFFERENT LOCATION<br/> POSSIBLE REASONS CAN BE: <br/> &nbsp;&nbsp;&nbsp;&nbsp; - THE LOCATION YOU ENTERED WAS NOT FOUND IN OUR SERVER. <br/>&nbsp;&nbsp;&nbsp;&nbsp; - OUR SERVERS ARE DOWN</h1>:
+      <>
       <div className="content-left">
         <h1 className={`header-key ${result_key==='GO AHEAD'?  'positive-result' : 'negative-result' }`}>{result_key}</h1>
         <h3>{result_key==="GO AHEAD" ? `Weather seems clear make that whip shine :)` :`not a great idea ${conditions} expected within next 5 days`}</h3>
@@ -127,6 +135,7 @@ function App(){
           <h1>{weatherData.list ? 'Precipitaion Probability: ' + weatherData.list[0].pop + ''  : 'loading'}</h1>
         </div>
       </div>
+      </>}
     </div>
     </>
   )
