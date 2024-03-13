@@ -6,7 +6,7 @@ import axios from 'axios';
 function App(){
 
   // eslint-disable-next-line no-unused-vars
-  const [location, setLocation] = useState('');
+  const [location, setLocation] = useState(null);
   const [weatherData, setWeatherData] = useState('');
   const [error, setError] = useState(null);
   const [result_key, setResult_key] = useState('NOPE')
@@ -83,7 +83,9 @@ function App(){
       )
       .catch((error) =>{
         console.log('The error was set while getting the weather')
-        setError(error)
+        setError(error);
+        setLoading(false);
+
       })
       setWeatherData(res.data)
       setLoading(false);
@@ -182,7 +184,7 @@ function App(){
           <input type="text" className='searchbar-txt'onKeyDown={e => getLocation(e)}/>
         </div>
       </div>
-      {loading? <h1>LOADING...</h1>: 
+      {loading? location===null ? <h1>PLEASE PROVIDE LOCATION ACCESS OR SEARCH FOR YOUR LOCATION </h1> : <h1>LOADING...</h1>: 
       <>
         <h1 className='location-name'>{location}</h1>  
         <div className='main-content'>
