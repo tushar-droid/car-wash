@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { useState } from 'react';
 import './App.css';
 import { useEffect } from 'react';
@@ -5,7 +6,7 @@ import axios from 'axios';
 function App(){
 
   // eslint-disable-next-line no-unused-vars
-  const [location, setLocation] = useState('windsor');
+  const [location, setLocation] = useState('Edmonton');
   const [weatherData, setWeatherData] = useState('');
   let are_temps_freezing = false;
   let is_snow_expected = false;
@@ -18,13 +19,13 @@ function App(){
   const KEY = '7dd6ba41dd78da2d426c8602e5ec3c72';
   const [conditions, setConditions] = useState('');
 
+  const getWeather = async () =>{
+    const res = await axios.get(
+      `https://api.openweathermap.org/data/2.5/forecast?appid=${KEY}&q=${location}&units=metric`
+    )
+    setWeatherData(res.data)
+  }
   useEffect(()=>{
-    const getWeather = async () =>{
-      const res = await axios.get(
-        `https://api.openweathermap.org/data/2.5/forecast?appid=${KEY}&q=${location}&units=metric`
-      )
-      setWeatherData(res.data)
-    }
     getWeather()
   },[location]);
 
@@ -39,7 +40,7 @@ function App(){
         else if(weatherData.list[data].weather[0].id >= 600 && weatherData.list[data].weather[0].id <=622){
           is_snow_expected = true;
         }
-        else if(weatherData.list[data].main.temp < -5){
+        else if(weatherData.list[data].main.temp < -10){
           are_temps_freezing = true;
         }
 
@@ -78,23 +79,25 @@ function App(){
       else{
         setResult_key("GO AHEAD");
       }
-      
-
-
-
-      // if(weatherData.list[0].weather[0].id >= 200 && weatherData.list[0].weather[0].id <=535 ){
-      //   console.log("Rain is expected in the next few days");
-
-      // }
-      // if(weatherData.list[0].weather[0].id >= 600 && weatherData.list[0].weather[0].id <=622 ){
-      //   console.log("Snow is expected in the next few days")
-      // }
+    
       //200 - 535 is rain including rain, thunderstorm, drizzle
       //600 - 622 is snow
       //reference: https://openweathermap.org/weather-conditions
     }
   },[weatherData])
 
+  // const inp = document.querySelector('.searchbar-txt')
+  // inp.addEventListener("keypress", (e) =>{
+  //   if(e.key ==="Enter"){
+  //     setLocation(inp.value.trim())
+  //   }
+  // })
+  const getLocation = (e) =>{
+    if(e.key ==="Enter"){
+      const val = document.querySelector('.searchbar-txt').value.trim();
+      setLocation(val)
+    }
+  }
 
 
   return(
@@ -103,7 +106,7 @@ function App(){
       <h1 className='heading'>Should I wash my car <br/>today?</h1>
       <div className='searchbar'>
         <img src='../public/search-icon.png' className='search-icon'/>
-        <input type="text" className='searchbar-txt'/>
+        <input type="text" className='searchbar-txt'onKeyDown={e => getLocation(e)}/>
       </div>
     </div>  
     <div className='main-content'>
