@@ -180,7 +180,7 @@ function App(){
       <div className='navbar'>
         <h1 className='heading'>Should I wash my car <br/>today?</h1>
         <div className='searchbar'>
-          <img src='../public/search-icon.png' className='search-icon'/>
+          <img src='/search-icon.png' className='search-icon'/>
           <input type="text" className='searchbar-txt'onKeyDown={e => getLocation(e)}/>
         </div>
       </div>
